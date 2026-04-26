@@ -786,7 +786,7 @@ def render_simulator_tab() -> None:
         "Interactive window-length simulator",
         "Use the slider to step through decision windows from 1 s to 6.85 s. "
         "Watch how FBCCA confidence (accuracy %) and information throughput (ITR) evolve "
-        "as more data cycles through the filter bank — and where Subject 1 and Subject 2 peak.",
+        "as more data cycles through the filter bank - and where Subject 1 and Subject 2 peak.",
     )
     if SIMULATOR_PATH.exists():
         st.markdown("<div class='sim-wrap'>", unsafe_allow_html=True)

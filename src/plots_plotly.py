@@ -21,7 +21,7 @@ except ImportError:
 CLASS_COLORS = {9: "#3f6fd8", 10: "#1f8a70", 12: "#af7d2d", 15: "#d95d39"}
 SESSION_SYMBOLS = {1: "circle", 2: "square", 3: "diamond", 4: "cross"}
 
-# ── Theme helper — transparent bg so charts breathe with the parchment app ──
+# ── Theme helper - transparent bg so charts breathe with the parchment app ──
 _PANEL = "#fffdf9"
 
 def _apply_theme(fig: go.Figure) -> go.Figure:
@@ -74,7 +74,7 @@ def raw_overview(session: Session, eeg_filt: np.ndarray,
         fig.add_trace(go.Scatter(
             x=t, y=mask, fill="tozeroy", mode="none",
             fillcolor=color, opacity=0.85, name=f"{f} Hz",
-            hovertemplate=f"%{{x:.2f}}s  —  {f} Hz<extra></extra>",
+            hovertemplate=f"%{{x:.2f}}s  -  {f} Hz<extra></extra>",
         ), row=1, col=1)
 
     # EEG: stack channels
@@ -98,7 +98,7 @@ def raw_overview(session: Session, eeg_filt: np.ndarray,
     )
     fig.update_xaxes(title_text="Time (s)", row=2, col=1)
     fig.update_layout(
-        title=f"{session.title} — Raw signal overview "
+        title=f"{session.title} - Raw signal overview "
               f"(filtered, t = {skip_secs:.0f}–{skip_secs + secs:.0f} s)",
         height=600, margin=dict(l=60, r=20, t=100, b=50),
         legend=dict(orientation="h", y=1.12, x=1, xanchor="right"),
@@ -118,7 +118,7 @@ def class_distribution(epochs: Epochs, session: Session) -> go.Figure:
         hovertemplate="%{x}<br>%{y} trials<extra></extra>",
     ))
     fig.update_layout(
-        title=f"{session.title} — Trial counts per class",
+        title=f"{session.title} - Trial counts per class",
         xaxis_title="Stimulation frequency",
         yaxis_title="Number of trials",
         yaxis=dict(range=[0, max(counts.values()) + 2]),
@@ -149,9 +149,9 @@ def psd_per_class(epochs: Epochs, session: Session) -> go.Figure:
         fig.add_vline(x=f, line=dict(color=color, dash="dash", width=1),
                       opacity=0.4)
     fig.update_layout(
-        title=f"{session.title} — Welch PSD per stimulation class",
+        title=f"{session.title} - Welch PSD per stimulation class",
         xaxis_title="Frequency (Hz)",
-        yaxis_title="Power (dB) — averaged over O1/Oz/O2",
+        yaxis_title="Power (dB) - averaged over O1/Oz/O2",
         xaxis=dict(range=[5, 35]),
         legend=dict(title="Trial class"),
         height=480, margin=dict(l=60, r=20, t=70, b=50),
@@ -172,7 +172,7 @@ def snr_heatmap(snr_mat: np.ndarray, session: Session) -> go.Figure:
         hovertemplate="Channel %{x}<br>%{y}<br>SNR %{z:.2f}<extra></extra>",
     ))
     fig.update_layout(
-        title=f"{session.title} — SSVEP SNR per channel × class",
+        title=f"{session.title} - SSVEP SNR per channel × class",
         xaxis_title="Channel",
         yaxis_title="Stimulation frequency",
         yaxis_autorange="reversed",
@@ -183,7 +183,7 @@ def snr_heatmap(snr_mat: np.ndarray, session: Session) -> go.Figure:
 
 def psd_per_channel(epochs: Epochs, session: Session,
                     fmin: float = 5.0, fmax: float = 50.0) -> go.Figure:
-    """2×4 grid of PSD curves — one panel per electrode, classes overlaid."""
+    """2×4 grid of PSD curves - one panel per electrode, classes overlaid."""
     freqs, psd = welch_psd(epochs)
     keep = (freqs >= fmin) & (freqs <= fmax)
     fig = make_subplots(rows=2, cols=4, subplot_titles=list(CH_NAMES),
@@ -209,7 +209,7 @@ def psd_per_channel(epochs: Epochs, session: Session,
     fig.update_xaxes(title_text="Frequency (Hz)", row=2)
     fig.update_yaxes(title_text="Power", col=1)
     fig.update_layout(
-        title=f"{session.title} — PSD per channel (classes overlaid)",
+        title=f"{session.title} - PSD per channel (classes overlaid)",
         height=480, margin=dict(l=50, r=20, t=80, b=60),
         legend=dict(title="Class", orientation="h", y=-0.05),
     )
@@ -262,7 +262,7 @@ def rest_vs_stimulus(session: Session, eeg_filt: np.ndarray,
     fig.update_yaxes(title_text="% change", row=1, col=2)
     fig.update_xaxes(title_text="Frequency (Hz)", range=[fmin, fmax], row=1)
     fig.update_layout(
-        title=f"{session.title} — Rest vs Stimulus",
+        title=f"{session.title} - Rest vs Stimulus",
         height=420, margin=dict(l=60, r=20, t=70, b=50),
         legend=dict(orientation="h", y=-0.15),
     )
@@ -296,7 +296,7 @@ def snr_class_heatmap(epochs: Epochs, session: Session,
                       "SNR %{z:.2f}<extra></extra>",
     ))
     fig.update_layout(
-        title=f"{session.title} — SNR (true class × ref freq)",
+        title=f"{session.title} - SNR (true class × ref freq)",
         xaxis=dict(title="Reference frequency", constrain="domain"),
         yaxis=dict(title="True class", autorange="reversed",
                    scaleanchor="x", constrain="domain"),
@@ -329,7 +329,7 @@ def cca_correlation_heatmap(scores: np.ndarray, labels: np.ndarray,
                       "r %{z:.3f}<extra></extra>",
     ))
     fig.update_layout(
-        title=f"{session.title} — CCA correlation (class × ref)",
+        title=f"{session.title} - CCA correlation (class × ref)",
         xaxis=dict(title="Reference frequency", constrain="domain"),
         yaxis=dict(title="True class", autorange="reversed",
                    scaleanchor="x", constrain="domain"),
@@ -374,7 +374,7 @@ def time_frequency(session: Session, eeg_filt: np.ndarray,
     fig.add_vline(x=0, line=dict(color="white", width=2, dash="dash"))
     fig.add_hline(y=target, line=dict(color="white", width=1, dash="dot"))
     fig.update_layout(
-        title=f"{session.title} — Time-frequency at {chan}, "
+        title=f"{session.title} - Time-frequency at {chan}, "
               f"{target} Hz trials (avg of {len(segs)})",
         xaxis_title="Time relative to stimulus onset (s)",
         yaxis_title="Frequency (Hz)",
@@ -397,7 +397,7 @@ def confusion(cm: np.ndarray, classes: list[int], session: Session,
                       "%{text:d} trials (%{z:.0%})<extra></extra>",
     ))
     fig.update_layout(
-        title=f"{session.title} — {label} confusion (acc = {acc:.0%})",
+        title=f"{session.title} - {label} confusion (acc = {acc:.0%})",
         xaxis=dict(title="Predicted", constrain="domain"),
         yaxis=dict(title="True", autorange="reversed",
                    scaleanchor="x", constrain="domain"),
@@ -419,7 +419,7 @@ def snr_comparison(snr_records: list[dict]) -> go.Figure:
                          "snr": "Mean occipital SNR",
                          "who": ""})
     fig.update_layout(
-        title="SSVEP SNR — subjects × sessions",
+        title="SSVEP SNR - subjects × sessions",
         xaxis=dict(type="category"),
         height=480, margin=dict(l=60, r=20, t=70, b=50),
     )
@@ -524,7 +524,7 @@ def feature_space_3d_overlay(coords: np.ndarray, axis_labels: list[str],
 
 def confusion_grid(cms: list[dict]) -> go.Figure:
     classes = cms[0]["classes"]
-    # Short titles to prevent overlap — acc on second line via <br>
+    # Short titles to prevent overlap - acc on second line via <br>
     titles = [
         f"{item['label']}<br><sup>acc {np.trace(item['cm']) / item['cm'].sum():.0%}</sup>"
         for item in cms
@@ -559,7 +559,7 @@ def confusion_grid(cms: list[dict]) -> go.Figure:
             row=r, col=c,
         )
     fig.update_layout(
-        title="CCA confusion matrices — all subjects/sessions",
+        title="CCA confusion matrices - all subjects/sessions",
         height=800,
         margin=dict(l=70, r=40, t=100, b=50),
     )

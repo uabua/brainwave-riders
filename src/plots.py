@@ -58,7 +58,7 @@ def plot_raw_overview(session: Session, eeg_filt: np.ndarray,
                           step="mid", label=f"{f} Hz")
     ax_t.set_yticks([]); ax_t.set_ylabel("Stim", rotation=0, labelpad=20)
     ax_t.legend(ncol=4, loc="upper right", framealpha=0.9, fontsize=10)
-    ax_t.set_title(f"{session.title} — Raw signal overview "
+    ax_t.set_title(f"{session.title} - Raw signal overview "
                    f"(filtered, t = {skip_secs:.0f}–{skip_secs + secs:.0f} s)")
 
     # Robust per-channel scale: 95th-percentile abs amplitude
@@ -88,7 +88,7 @@ def plot_class_distribution(epochs: Epochs, session: Session, out: Path) -> Path
                 fontweight="bold")
     ax.set_xlabel("Stimulation frequency (Hz)")
     ax.set_ylabel("Number of trials")
-    ax.set_title(f"{session.title} — Trial counts per class")
+    ax.set_title(f"{session.title} - Trial counts per class")
     ax.set_ylim(0, max(counts.values()) + 2)
     p = out / "02_class_distribution.png"
     _save(fig, p)
@@ -111,8 +111,8 @@ def plot_psd_per_class(epochs: Epochs, session: Session, out: Path) -> Path:
     for f, color in CLASS_COLORS.items():
         ax.axvline(f, color=color, ls="--", alpha=0.4)
     ax.set_xlabel("Frequency (Hz)")
-    ax.set_ylabel("Power (dB)  —  averaged over O1/Oz/O2")
-    ax.set_title(f"{session.title} — Welch PSD per stimulation class")
+    ax.set_ylabel("Power (dB)  -  averaged over O1/Oz/O2")
+    ax.set_title(f"{session.title} - Welch PSD per stimulation class")
     ax.legend(title="Trial class", framealpha=0.9, fontsize=10)
     ax.set_xlim(5, 35)
     p = out / "03_psd_per_class.png"
@@ -125,7 +125,7 @@ def plot_topomaps(epochs: Epochs, session: Session, out: Path,
     freqs, psd = welch_psd(epochs)
     info = session.raw.info
     fig, axes = plt.subplots(1, 4, figsize=(13, 4))
-    fig.suptitle(f"{session.title} — Scalp power at each stimulation frequency",
+    fig.suptitle(f"{session.title} - Scalp power at each stimulation frequency",
                  fontsize=14)
     cmap = LinearSegmentedColormap.from_list(
         "ssvep", ["#264653", "#2A9D8F", "#E9C46A", "#F4A261", "#E63946"]
@@ -160,7 +160,7 @@ def plot_snr_heatmap(snr_mat: np.ndarray, session: Session, out: Path) -> Path:
                 xticklabels=CH_NAMES,
                 yticklabels=[f"{int(t)} Hz" for t in TARGET_FREQS],
                 cbar_kws={"label": "SNR (target / sideband)"}, ax=ax)
-    ax.set_title(f"{session.title} — SSVEP SNR per channel × class")
+    ax.set_title(f"{session.title} - SSVEP SNR per channel × class")
     ax.set_xlabel("Channel")
     ax.set_ylabel("Stimulation frequency")
     p = out / "05_snr_heatmap.png"
@@ -202,7 +202,7 @@ def plot_time_frequency(session: Session, eeg_filt: np.ndarray,
                         cmap="magma", shading="auto")
     ax.axvline(0, color="white", lw=2, ls="--")
     ax.axhline(target, color="white", lw=1, ls=":")
-    ax.set_title(f"{session.title} — Time-frequency at {chan}, "
+    ax.set_title(f"{session.title} - Time-frequency at {chan}, "
                  f"{target} Hz trials (avg of {len(segs)})")
     ax.set_xlabel("Time relative to stimulus onset (s)")
     ax.set_ylabel("Frequency (Hz)")
@@ -221,7 +221,7 @@ def plot_confusion(cm: np.ndarray, classes: list[int], session: Session,
                 yticklabels=[f"{c} Hz" for c in classes],
                 vmin=0, vmax=1, cbar_kws={"label": "Row-normalised"}, ax=ax)
     acc = np.trace(cm) / cm.sum() if cm.sum() else 0.0
-    ax.set_title(f"{session.title} — {label} confusion (acc = {acc:.0%})")
+    ax.set_title(f"{session.title} - {label} confusion (acc = {acc:.0%})")
     ax.set_xlabel("Predicted")
     ax.set_ylabel("True")
     p = out / "07_confusion.png"
@@ -242,7 +242,7 @@ def plot_snr_comparison(snr_records: list[dict], out: Path) -> Path:
                 palette="Set2", ax=ax)
     ax.set_xlabel("Stimulation frequency (Hz)")
     ax.set_ylabel("Mean occipital SNR")
-    ax.set_title("SSVEP SNR — subjects × sessions")
+    ax.set_title("SSVEP SNR - subjects × sessions")
     ax.legend(title=None, fontsize=9)
     p = out / "01_snr_comparison.png"
     _save(fig, p)
@@ -286,7 +286,7 @@ def plot_confusion_grid(cms: list[dict], out: Path) -> Path:
         ax.set_title(f"{item['label']}  (acc {acc:.0%})", fontsize=12)
         ax.set_xlabel("Predicted (Hz)")
         ax.set_ylabel("True (Hz)")
-    fig.suptitle("CCA confusion matrices — all subjects/sessions",
+    fig.suptitle("CCA confusion matrices - all subjects/sessions",
                  fontsize=15, y=1.0)
     p = out / "03_confusion_grid.png"
     _save(fig, p)

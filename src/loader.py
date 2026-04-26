@@ -30,7 +30,7 @@ class Session:
 
     @property
     def title(self) -> str:
-        return f"Subject {self.subject} — Session {self.session}"
+        return f"Subject {self.subject} - Session {self.session}"
 
 
 def _make_raw(eeg: np.ndarray, sfreq: int) -> mne.io.RawArray:

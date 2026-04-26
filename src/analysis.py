@@ -48,7 +48,7 @@ def snr_at(freqs: np.ndarray, psd: np.ndarray, target: float,
 def snr_matrix(epochs: Epochs, targets: list[float]
                ) -> tuple[np.ndarray, np.ndarray]:
     """Return (snr_per_class, freqs):
-       snr_per_class shape = (n_targets, n_channels) — SNR averaged across
+       snr_per_class shape = (n_targets, n_channels) - SNR averaged across
        trials of the matching class.
     """
     freqs, psd = welch_psd(epochs)

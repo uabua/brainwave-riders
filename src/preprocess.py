@@ -16,7 +16,7 @@ except ImportError:
 @dataclass
 class Epochs:
     data: np.ndarray  # (n_trials, n_channels, n_samples)
-    labels: np.ndarray  # (n_trials,) — stimulation frequency in Hz
+    labels: np.ndarray  # (n_trials,) - stimulation frequency in Hz
     sfreq: int
     tmin: float
     tmax: float
